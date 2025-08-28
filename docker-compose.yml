@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+backend:
+build: ./backend
+volumes:
+- ./backend/app:/app/app
+ports:
+- "8000:8000"
+env_file:
+- ./backend/.env
+frontend:
+image: streamlit/streamlit:latest
+volumes:
+- ./frontend:/workspace
+working_dir: /workspace
+command: streamlit run streamlit_app.py --server.port 8501 --server.headless true
+ports:
+- "8501:8501"
+env_file:
+- ./frontend/.env
